@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>血壓管理 App</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>血壓管理</h1>
+
+    <form id="bpForm">
+      <div class="row">
+        <label>收縮壓 (mmHg)
+          <input type="number" id="systolic" required min="0" />
+        </label>
+        <label>舒張壓 (mmHg)
+          <input type="number" id="diastolic" required min="0" />
+        </label>
+        <label>脈搏 (bpm)
+          <input type="number" id="pulse" required min="0" />
+        </label>
+      </div>
+
+      <label>用藥狀態
+        <select id="medication">
+          <option value="none">無</option>
+          <option value="taken">已服藥</option>
+          <option value="not_taken">未服藥</option>
+        </select>
+      </label>
+
+      <label>備註
+        <textarea id="notes" rows="3" placeholder="可選，輸入其他事項..."></textarea>
+      </label>
+
+      <div class="actions">
+        <button type="submit">記錄</button>
+        <button type="button" id="clearAll">清除所有紀錄</button>
+      </div>
+    </form>
+
+    <section>
+      <h2>紀錄清單</h2>
+      <ul id="entries" class="entries"></ul>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
