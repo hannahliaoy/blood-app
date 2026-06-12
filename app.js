@@ -1,8 +1,10 @@
 const form = document.getElementById('bpForm');
 const entriesList = document.getElementById('entries');
 const clearAllBtn = document.getElementById('clearAll');
+const themeToggle = document.getElementById('themeToggle');
 
 const STORAGE_KEY = 'bpEntries_v1';
+const THEME_KEY = 'bp_theme_v1';
 let entries = [];
 
 function loadEntries() {
@@ -103,3 +105,31 @@ clearAllBtn.addEventListener('click', () => {
 // init
 loadEntries();
 render();
+
+// Theme handling
+function applyTheme(theme) {
+  if (theme === 'dark') document.documentElement.classList.add('dark');
+  else document.documentElement.classList.remove('dark');
+}
+
+function loadTheme() {
+  try {
+    const t = localStorage.getItem(THEME_KEY) || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    applyTheme(t);
+    if (themeToggle) themeToggle.checked = (t === 'dark');
+  } catch (e) {}
+}
+
+function saveTheme(theme) {
+  try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+}
+
+if (themeToggle) {
+  themeToggle.addEventListener('change', () => {
+    const t = themeToggle.checked ? 'dark' : 'light';
+    applyTheme(t);
+    saveTheme(t);
+  });
+}
+
+loadTheme();
